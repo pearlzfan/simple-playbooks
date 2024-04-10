@@ -1,0 +1,26 @@
+- name: Run shell command on unx host
+  hosts: all
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: Shell command
+    shell: "{{ cmd }}"
+    register: cmd_out
+    when: cmd|default('') != ''
+
+  - name: Show command output
+    debug:
+      msg: "{{ cmd_out.stdout_lines }}"
+
+  - name: Manual shell command
+    shell: ""{ man_cmd }}"
+    register: man_cmd
+    when: man_cmd|default('') != ''
+
+  - name: Show manual command output
+    debug:
+      msg: "{{ man_cmd_out.stdout_lines }}"
+    when: man_cmd|default('') != ''
+
+    
