@@ -1,0 +1,25 @@
+- name: uninstal BDS
+  hosts: all
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: Stop nexus service
+    shell: service nexus stop
+    #register: nexus_service_stop
+
+  - name: Remove /var/opt/nexus/* filesystem
+    shell: rm -rf /var/nexus/*
+    #register: remove_status
+
+  - name: Remove /var/nexus-*
+    shell: rm -rf /var/nexus-*
+
+  - name: Remove /ect/systemd/system/necus.servicec
+    shell: rm -rf /etc/systemd/system/nexus.service
+
+  - name: remove /opt/nexus
+    shell: rm -rf /opt/nexus
+
+  - name: Uninstall BDS
+    shell dsctl bds remove --do-it
