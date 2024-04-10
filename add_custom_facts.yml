@@ -1,0 +1,63 @@
+- name: Install custom facts
+  hosts: all
+  gather_facts: no
+  become: yes
+  vars:
+    remote_dir_unx: /etc/ansible/facts.d
+    remote_dir_win: C:\Program Files\Ansible\facts.d\
+    facts_file_unx: ./custom_facts/custom.fact
+    facts_files_win: ./custom_facts/win_custom_facts.ps1
+
+ tasks:
+ - name: Collect only selected facts
+   setup:
+     filter:
+       - 'ansible_system'
+       - 'ansible_os_family'
+       - 'ansible_distribution'
+
+ - name: Create facts directory on unx remote host
+   file:
+     path: "{{ remote_dir_unx }}"
+     state: directory
+     recurse: yes
+   when: (ansible_system == "AIX") or (ansible_system == "Linux")
+ 
+ - name: Create facts directory on win remote host
+   win_file:
+     path: "{{ remote_dir_win }}"
+     state: directory
+     recurse: yes
+   when: ansible_os_family == "windows"
+
+ - name: Copy contents to facts file on unx hosts
+   copy:
+     src: "{{ facts_file_unx }}"
+     dest: "{{ remote_dir_unx }}"
+     force: yes
+   when: (ansible_system == "AIX") or (ansible_system == "Linux")
+
+ - name: Copy contenst to facts file on windows hosts
+   win_copy:
+     src: "{{ facts_file_win }}"
+     dest: "{{ remote_dir_win }}"
+     force: yes
+   when: ansible_os_family == "windows"
+
+ - name: Check if custom facts were added on unx hosts
+   setup:
+     fact_path: /var/opt/ansible/facts.d
+     filter: ansible_local
+   when: (ansible_system == "AIX") or (ansible_system == "Linux")
+
+ - name: Check if custom facts were added pn windows hosts
+   setup:
+     fact_path: C:\Program Files\Ansible\facts.d
+     filter: ansible_local
+   when: ansible_os_family == "windows"
+  
+
+
+ 
+    
+    
