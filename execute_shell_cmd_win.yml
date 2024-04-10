@@ -1,0 +1,23 @@
+- name: Run shell command on windows host
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+  - name: Shell command
+    win_shell: "{{ cmd }}"
+    register: cmd_out
+    when: cmd|default('') != ''
+
+  - name: Show command output
+    debug:
+      msg: "{{ cmd_out.stdout_line ||"
+    when: cmd|defualt('') != ''
+
+  - name: Manual shell command
+    win_shell: "{{ man_cmd }}"
+    register: man_cmd
+
+  - name: Show manual command output
+    debug:
+      msg: "{{ man_cmd_out.stdout_lines }}"
+    when: man_cmd|defualt('') != ''
