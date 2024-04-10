@@ -1,0 +1,27 @@
+- name: Hostname check
+  hosts: windows
+  gather_facts: no
+  vars:
+    hostname: "{{ inventory_hostname.split('.')[0] | lower }}"
+
+ tasks:
+ - name: Get hostanem on host
+   win_command: hostname
+   register: hostname
+
+ - name: Show debug
+   debug: var=hostname.stdout_lines
+
+ - name: Show hostname
+   debug:
+     msg: "{{ hostname }} {{hostname.stdout.rstrip() | lower }}"
+
+ - name: Msg when hostname match
+   debug:
+     msg: "OK {{ hostname }} {{ hostname.stdou.rstrip() | lower }}"
+   when: hostname == ( hostname.stdou.rstrip() | lower )
+
+ - name: Msg when hostname does not match
+   debug:
+     msg: "Hostname does not match {{ hostname }} {{hostname.stdou.rstrip() | lower }}"
+   when: hostname != ( hostname.stdout.rstrip() | lower )
