@@ -6,6 +6,6 @@ Collection of simple playbooks:
 * connectivity test
 * Powershel version check
 * Python version check
-* Check whether target is symplink
+* Check whether target is symlink
 * Run shell command (unx & win)
 * SonatypNexus Repository Manager uninstall
