@@ -1,0 +1,8 @@
+- name: Check connection to unx hosts
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Hello world
+    ignore_unreachable: true
+    ping:
