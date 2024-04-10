@@ -1,0 +1,8 @@
+- name: Check connection to Windows hosts
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+  - name: Hello Windows
+    ignore_unreachable: true
+    win_ping:
