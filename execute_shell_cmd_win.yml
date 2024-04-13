@@ -16,6 +16,7 @@
   - name: Manual shell command
     win_shell: "{{ man_cmd }}"
     register: man_cmd_out
+    when: man_cmd|default('') != ''
 
   - name: Show manual command output
     debug:
