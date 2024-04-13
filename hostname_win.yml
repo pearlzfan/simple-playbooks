@@ -4,17 +4,17 @@
   #vars:
   #  hostname: "{{ inventory_hostname.split('.')[0] | lower }}"
 
- tasks:
-   - name: Get hostanem on host
-     win_command: hostname
-     register: hostname
+  tasks:
+    - name: Get hostanem on host
+      win_command: hostname
+      register: hostname
  
-   - name: Display Hostname
-     debug:
-       msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout_lines }}"
+    - name: Display Hostname
+      debug:
+        msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout_lines }}"
 
-   - name: Compare Hostnames
-     assert:
-       that:
-         - inventory_hostname == real_hostname_output.stdout
-       msg: "Hostnames do not match! {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout_lines }}"
+    - name: Compare Hostnames
+      assert:
+        that:
+          - inventory_hostname == real_hostname_output.stdout
+        msg: "Hostnames do not match! {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout_lines }}"
