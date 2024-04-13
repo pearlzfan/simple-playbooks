@@ -10,8 +10,8 @@
    register: hostname
  
  - name: Display Hostname
-  debug:
-    msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout_lines }}"
+   debug:
+     msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout_lines }}"
 
  - name: Compare Hostnames
    assert:
