@@ -15,7 +15,7 @@
 
   - name: Show hostname in inventory
     debug:
-      msg: "{{ inv_hname }} {{ hostname.stdout_lines.rstrip() | lower }}"
+      msg: "{{ inv_hname }} {{ hostname.stdout.rstrip() | lower }}"
 
   - name: Msg when hostnames match
     debug:
