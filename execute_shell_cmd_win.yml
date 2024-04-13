@@ -20,6 +20,6 @@
 
   - name: Show manual command output
     debug:
-      msg: "{{ man_cmd_out.stdout }}"
+      msg: "{{ man_cmd_out.stdout_lines }}"
     ignore_errors: yes
     when: man_cmd|default('') != ''
