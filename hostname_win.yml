@@ -5,9 +5,9 @@
   #  hostname: "{{ inventory_hostname.split('.')[0] | lower }}"
 
   tasks:
-    - name: Get hostanem on host
+    - name: Get hostname from host
       win_command: hostname
-      register: hostname
+      register: real_hostname_output
  
     - name: Display Hostname
       debug:
