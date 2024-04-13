@@ -6,7 +6,7 @@
 
   tasks:
     - name: Get hostname from host
-      win_command: (Get-Content env:COMPUTERNAME)
+      win_command: Get-Content env:COMPUTERNAME
       register: real_hostname_output
  
     - name: Display Hostname
