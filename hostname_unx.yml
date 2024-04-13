@@ -2,28 +2,28 @@
   hosts: all
   gather_facts: no
   vars:
-    hostname: "{{ inventory_hostname | lower }}"
+    inv_hname: "{{ inventory_hostname | lower }}"
     #hostname: "{{ inventory_hostname.split(.)[0] | lower }}"
 
   tasks:
   - name: Get host name
-    shell: uname #-n | cut -d"." -f1
+    shell: uname -n | cut -d"." -f1
     register: hostname
 
-  - name: Show var
+  - name: Show hostname on host
     debug: var=hostname.stdout_lines
 
-  - name: Show hostname
+  - name: Show hostname in inventory
     debug:
-      msg: "{{ hostname }} {{ hostname.stdout_lines.rstrip() | lower }}"
+      msg: "{{ inv_hname }} {{ hostname.stdout_lines.rstrip() | lower }}"
 
   - name: Msg when hostnames match
     debug:
-      msg: "OK  {{ hostname }} {{ inventory_hostname.rstrip() | lower }}"
-    when: hostname == (hostname.stdout_lines.rstrip() | lower)
+      msg: "OK  {{ inv_hname }} {{ inventory_hostname.rstrip() | lower }}"
+    when: hname == (hostname.stdout_lines.rstrip() | lower)
 
   - name: Msg when hostnames does not match
     debug:
-      msg: "Hostname is not the same {{ hostname }} {{ hostname.stdout_lines.rstrip() | lower }}"
-    when: hostname != hostname.stdout_lines.rstrip() | lower
+      msg: "Hostname is not the same {{ inv_hname }} {{ inventory_hostname.rstrip() | lower }}"
+    when: hname != hostname.stdout_lines.rstrip() | lower
 
