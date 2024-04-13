@@ -13,12 +13,12 @@
 
     - name: Display Hostname
       debug:
-        msg: "Hostname for {{ inventory_hostname }} is {{ ansible_hostname }}. Real hostname is {{ real_hostname_output.stdout }}"
+        msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout_lines }}"
 
     - name: Compare Hostnames
       assert:
         that:
           - ansible_hostname == real_hostname_output.stdout
-        msg: "Hostnames do not match! ansible_hostname: {{ ansible_hostname }}, real_hostname: {{ real_hostname_output.stdout }}"
+        msg: "Hostnames do not match! ansible_hostname: {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout_lines }}"
 
 
