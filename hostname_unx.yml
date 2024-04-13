@@ -18,7 +18,7 @@
     - name: Compare Hostnames
       assert:
         that:
-          - ansible_hostname == real_hostname_output.stdout
+          - inventory_hostname == real_hostname_output.stdout
         msg: "Hostnames do not match! {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout_lines }}"
 
 
