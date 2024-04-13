@@ -2,7 +2,7 @@
   hosts: all
   gather_facts: no
   vars:
-  hostname: "{{ inventory_hostname.split(.)[0] | lower }}"
+    hostname: "{{ inventory_hostname.split(.)[0] | lower }}"
 
   tasks:
   - name: Get host name
