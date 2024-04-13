@@ -1,4 +1,4 @@
-- name: hosntame check unx
+- name: hostname check unx
   hosts: all
   gather_facts: no
   vars:
