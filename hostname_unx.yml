@@ -6,24 +6,19 @@
     #hostname: "{{ inventory_hostname.split(.)[0] | lower }}"
 
   tasks:
-  - name: Get host name
-    shell: uname -n | cut -d"." -f1
-    register: hostname
+    - name: Get Real Hostname
+      shell: uname -n | cut -d"." -f1
+      register: real_hostname_output
+      changed_when: false
 
-  - name: Show hostname on host
-    debug: var=hostname.stdout_lines
+    - name: Display Hostname
+      debug:
+        msg: "Hostname for {{ inventory_hostname }} is {{ ansible_hostname }}. Real hostname is {{ real_hostname_output.stdout }}"
 
-  - name: Show hostname in inventory
-    debug:
-      msg: "{{ hostname }} {{ hostname.stdout.rstrip() | lower }}"
+    - name: Compare Hostnames
+      assert:
+        that:
+          - ansible_hostname == real_hostname_output.stdout
+        msg: "Hostnames do not match! ansible_hostname: {{ ansible_hostname }}, real_hostname: {{ real_hostname_output.stdout }}"
 
-  - name: Msg when hostnames match
-    debug:
-      msg: "OK  {{ hostname }} {{ inventory_hostname.rstrip() | lower }}"
-    when: hname == (hostname.stdout_lines.rstrip() | lower)
-
-  - name: Msg when hostnames does not match
-    debug:
-      msg: "Hostname is not the same {{ hostname }} {{ inventory_hostname.rstrip() | lower }}"
-    when: hname != hostname.stdout_lines.rstrip() | lower
 
