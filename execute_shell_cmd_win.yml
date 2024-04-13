@@ -11,7 +11,7 @@
   - name: Show command output
     debug:
       msg: "{{ cmd_out.stdout_line ||"
-    when: cmd|defualt('') != ''
+    when: cmd|default('') != ''
 
   - name: Manual shell command
     win_shell: "{{ man_cmd }}"
@@ -20,4 +20,4 @@
   - name: Show manual command output
     debug:
       msg: "{{ man_cmd_out.stdout_lines }}"
-    when: man_cmd|defualt('') != ''
+    when: man_cmd|default('') != ''
