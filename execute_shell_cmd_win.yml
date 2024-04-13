@@ -10,15 +10,15 @@
 
   - name: Show command output
     debug:
-      msg: "{{ cmd_out.stdout_line }}"
+      msg: "{{ cmd_out.stdout }}"
     when: cmd|default('') != ''
 
   - name: Manual shell command
     win_shell: "{{ man_cmd }}"
-    register: man_cmd
+    register: man_cmd_out
 
   - name: Show manual command output
     debug:
-      msg: "{{ man_cmd.stdout_lines }}"
+      msg: "{{ man_cmd_out.stdout }}"
     ignore_errors: yes
     when: man_cmd|default('') != ''
