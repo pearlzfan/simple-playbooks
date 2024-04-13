@@ -2,11 +2,12 @@
   hosts: all
   gather_facts: no
   vars:
-    hostname: "{{ inventory_hostname.split(.)[0] | lower }}"
+    hostname: "{{ inventory_hostname | lower }}"
+    #hostname: "{{ inventory_hostname.split(.)[0] | lower }}"
 
   tasks:
   - name: Get host name
-    shell: uname -n | cut -d"." -f1
+    shell: uname #-n | cut -d"." -f1
     register: hostname
 
   - name: Show var
@@ -14,15 +15,15 @@
 
   - name: Show hostname
     debug:
-      msg: "{{ hostname }} {{ hostname.stdout.rstrip() | lower }}"
+      msg: "{{ hostname }} {{ hostname.stdout_lines.rstrip() | lower }}"
 
   - name: Msg when hostnames match
     debug:
-      msg: "OK  {{ hostname }} {{ inventory_hostname.strip() | lower }}"
-    when: hostname == (hostname.stdout.rstrip() | lower)
+      msg: "OK  {{ hostname }} {{ inventory_hostname.rstrip() | lower }}"
+    when: hostname == (hostname.stdout_lines.rstrip() | lower)
 
   - name: Msg when hostnames does not match
     debug:
-      msg: "Hostname is not the same {{ hostname }} {{ hostname.stdout.rstrip() | lower }}"
-    when: hostname != hostname.stdout.rstrip() | lower
+      msg: "Hostname is not the same {{ hostname }} {{ hostname.stdout_lines.rstrip() | lower }}"
+    when: hostname != hostname.stdout_lines.rstrip() | lower
 
