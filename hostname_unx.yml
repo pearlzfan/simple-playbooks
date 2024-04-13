@@ -15,15 +15,15 @@
 
   - name: Show hostname in inventory
     debug:
-      msg: "{{ inv_hname }} {{ hostname.stdout.rstrip() | lower }}"
+      msg: "{{ hostname }} {{ hostname.stdout.rstrip() | lower }}"
 
   - name: Msg when hostnames match
     debug:
-      msg: "OK  {{ inv_hname }} {{ inventory_hostname.rstrip() | lower }}"
+      msg: "OK  {{ hostname }} {{ inventory_hostname.rstrip() | lower }}"
     when: hname == (hostname.stdout_lines.rstrip() | lower)
 
   - name: Msg when hostnames does not match
     debug:
-      msg: "Hostname is not the same {{ inv_hname }} {{ inventory_hostname.rstrip() | lower }}"
+      msg: "Hostname is not the same {{ hostname }} {{ inventory_hostname.rstrip() | lower }}"
     when: hname != hostname.stdout_lines.rstrip() | lower
 
