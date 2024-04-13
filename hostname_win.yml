@@ -16,5 +16,5 @@
     - name: Compare Hostnames
       assert:
         that:
-          - inventory_hostname == (real_hostname_output.stdout_lines | lower)
+          - inventory_hostname == (real_hostname_output.stdout | lower)
         msg: "Hostnames do not match! {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout_lines | lower }}"
