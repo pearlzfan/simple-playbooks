@@ -6,15 +6,15 @@
 
   tasks:
     - name: Get hostname from host
-      win_command: Get-Content env:COMPUTERNAME
+      win_command: hostname
       register: real_hostname_output
  
     - name: Display Hostname
       debug:
-        msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout_lines }}"
+        msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout.rstrip() }}"
 
     - name: Compare Hostnames
       assert:
         that:
-          - inventory_hostname == real_hostname_output.stdout
-        msg: "Hostnames do not match! {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout_lines }}"
+          - inventory_hostname == real_hostname_output.stdout.rstrip()
+        msg: "Hostnames do not match! {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout.rstrip() }}"
