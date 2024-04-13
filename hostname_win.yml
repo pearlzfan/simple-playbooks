@@ -11,10 +11,10 @@
  
     - name: Display Hostname
       debug:
-        msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout.rstrip() }}"
+        msg: "Hostname in inventory is {{ inventory_hostname }} . Real hostname is {{ real_hostname_output.stdout.rstrip() | lower }}"
 
     - name: Compare Hostnames
       assert:
         that:
-          - inventory_hostname == real_hostname_output.stdout.rstrip()
-        msg: "Hostnames do not match! {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout.rstrip() }}"
+          - inventory_hostname == (real_hostname_output.stdout.rstrip() | lower)
+        msg: "Hostnames do not match! {{ inventory_hostname }}, real_hostname: {{ real_hostname_output.stdout.rstrip() | lower }}"
