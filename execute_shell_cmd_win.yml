@@ -10,7 +10,7 @@
 
   - name: Show command output
     debug:
-      msg: "{{ cmd_out.stdout }}"
+      msg: "{{ cmd_out.stdout_lines }}"
     when: cmd|default('') != ''
 
   - name: Manual shell command
