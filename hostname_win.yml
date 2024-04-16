@@ -1,6 +1,6 @@
 - name: Hostname check win
   hosts: windows
-  gather_facts: no
+  gather_facts: yes
   #vars:
   #  hostname: "{{ inventory_hostname.split('.')[0] | lower }}"
 
